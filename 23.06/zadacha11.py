@@ -23,8 +23,7 @@ for cnt in contours_green:
     cv2.drawContours(image, [cnt], -1, (255, 0, 0), 2)
     # Рисуем центр
     cv2.circle(image, (cX, cY), 5, (255, 0, 0), -1)
-    cv2.putText(image, "Green", (cX - 20, cY - 20),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
+
 # Обработка жёлтых объектов
 for cnt in contours_yellow:
     # Получаем ограничивающий прямоугольник
@@ -35,8 +34,6 @@ for cnt in contours_yellow:
     cv2.drawContours(image, [cnt], -1, (0, 255, 0), 2)
     # Рисуем центр
     cv2.circle(image, (cX, cY), 5, (0, 255, 0), -1)
-    cv2.putText(image, "Yellow", (cX - 20, cY - 20),
-                cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 # Сохранение и отображение результата
 cv2.imwrite('result.jpg', image)
 cv2.imshow('Result', image)
