@@ -1,41 +1,32 @@
-﻿#include <string>
+﻿#include <iostream>
 #include <vector>
-#include <iostream>
+#include <string>
 using namespace std;
+
 int main() {
-    int n = 0;
-    int k = 0;
+    int n, k;
     cin >> n >> k;
-    string str = "";
-    string res = "";
-    vector<int> vec;
+
+    vector<int> per(n);
     for (int i = 0; i < n; i++) {
-        int d = 0;
-        cin >> d;
-        vec.push_back(d);
+        cin >> per[i];
     }
+
+    string str;
     cin >> str;
-    res.resize(str.size());
-    int it = 0;
+
+    string cur = str;
+    string t = str;
+
     for (int i = 0; i < k; i++) {
-        if (it % 2 == 0) {
-            for (int j = 0; j < str.size(); j++) {
-                int ind = vec[j];
-                res[--ind] = str[j];
-            }
+        t = cur;
+
+        for (int j = 0; j < n; j++) {
+            int new_pos = per[j] - 1;
+            cur[new_pos] = t[j];
         }
-        else {
-            for (int j = 0; j < str.size(); j++) {
-                int ind = vec[j];
-                str[--ind] = res[j];
-            }
-        }
-        it++;
     }
-    if (it % 2 == 1) {
-        cout << res;
-    }
-    else {
-        cout << str;
-    }
+
+    cout << cur << '\n';
+    return 0;
 }
