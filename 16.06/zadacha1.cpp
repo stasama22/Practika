@@ -23,8 +23,8 @@ int main() {
     vector<vector<int>> vec = func(m);
     int num = vec[0][0];
     iii.push_back(vec[0][0]);
+    int k = 0;
     for (int i = 1; i < m; i++) {
-        int k = 0;
         if (k == 0) {
             int y = min(vec[i][k + 1], vec[i][k]);
             if (y == vec[i][k + 1]) {

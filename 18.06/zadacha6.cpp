@@ -1,31 +1,30 @@
 ﻿#include <iostream>
-#include <cctype>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-bool isLatinLetter(char c) {
-    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
-}
-
-bool isCarNumber(const std::string& s) {
-    if (s.length() != 6) return false;
-    if (!isLatinLetter(s[0]) return false;
-        for (int i = 1; i <= 3; ++i) {
-            if (!isdigit(s[i])) return false;
-        }
-    for (int i = 4; i <= 5; ++i) {
-        if (!isLatinLetter(s[i])) return false;
-    }
-
-    return true;
+int calculateMaxPairs(int a, int b, int x, int y) {
+    int p1 = min(a, x + y);
+    int p2 = min(b, x);
+    return p1 + p2;
 }
 
 int main() {
-    std::string number;
-    std::cin >> number;
+    int n;
+    cin >> n;
+    vector<int> res;
 
-    if (isCarNumber(number)) {
-        std::cout << "YES" << '\n';
+    for (int i = 0; i < n; i++) {
+        int a, b, x, y;
+        cin >> a >> b >> x >> y;
+        res.push_back(calculateMaxPairs(a, b, x, y));
     }
-    else {
-        std::cout << "NO" << '\n';
+
+    for (int i = 0; i < n; i++) {
+        cout << res[i];
+        if (i != n - 1) {
+            cout << " ";
+        }
     }
+    cout << '\n';
 }
