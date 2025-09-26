@@ -1,7 +1,10 @@
 ﻿#include <cstdlib>
 #include <iostream>
 #include <algorithm>
+#include <vector>
+#include <ctime>
 using namespace std;
+
 vector<vector<int>> func(int num) {
     vector<vector<int>> vec;
     vec.resize(num);
@@ -16,47 +19,34 @@ vector<vector<int>> func(int num) {
     }
     return vec;
 }
+
+
 int main() {
-    int m = 0;
-    cin >> m;
-    vector<int> iii;
-    vector<vector<int>> vec = func(m);
-    int num = vec[0][0];
-    iii.push_back(vec[0][0]);
-    int k = 0;
-    for (int i = 1; i < m; i++) {
-        if (k == 0) {
-            int y = min(vec[i][k + 1], vec[i][k]);
-            if (y == vec[i][k + 1]) {
-                k++;
+    srand(std::time(nullptr));
+    int n = 0;
+    std::cin >> n;
+    cout << '\n';
+    auto pyramid = func(n);
+    vector<vector<int>> dp = pyramid;
+    vector<vector<int>> res(n, vector<int>(n, -1));
+
+    for (int i = n - 2; i >= 0; --i) {
+        for (int j = 0; j <= i; ++j) {
+            int m_n = min(dp[i + 1][j], dp[i + 1][j + 1]);
+            dp[i][j] += m_n;
+            if (m_n == dp[i + 1][j]) {
+                res[i][j] = j;
             }
-            num += y;
-            iii.push_back(y);
-        }
-        else if (k == vec[i].size() - 1) {
-            int y = 0;
-            y = min(vec[i][k - 1], vec[i][k]);
-            if (y == vec[i][k - 1]) {
-                k--;
+            else {
+                res[i][j] = j + 1;
             }
-            num += y;
-            iii.push_back(y);
-        }
-        else {
-            int f = min(vec[i][k + 1], vec[i][k]);
-            int y = std::min(f, vec[i][k - 1]);
-            if (y == vec[i][k - 1]) {
-                k--;
-            }
-            else if (y == vec[i][k + 1]) {
-                k++;
-            }
-            num += y;
-            iii.push_back(y);
         }
     }
-    std::cout << num << '\n';
-    for (int i = 0; i < m; i++) {
-        cout << iii[i] << ' ';
+    cout << dp[0][0] << '\n';
+    int cur = 0;
+    for (int i = 0; i < n; ++i) {
+        cout << pyramid[i][cur] << " ";
+        cur = res[i][cur];
     }
+    cout << '\n';
 }
